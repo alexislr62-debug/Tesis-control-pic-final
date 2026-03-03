@@ -26,14 +26,11 @@ please contact mla_licensing@microchip.com
 
 #include "usb.h"
 
-#include "app_led_usb_status.h"
 #include "app_device_cdc_basic.h"
 #include "usb_config.h"
 
 /** VARIABLES ******************************************************/
 
-static bool buttonPressed;
-static char buttonMessage[] = "Button pressed.\r\n";
 static uint8_t readBuffer[CDC_DATA_OUT_EP_SIZE];
 static uint8_t writeBuffer[CDC_DATA_IN_EP_SIZE];
 
@@ -56,13 +53,15 @@ void APP_DeviceCDCBasicDemoInitialize()
     line_coding.bParityType = 0;
     line_coding.dwDTERate = 9600;
 
-    buttonPressed = false;
 }
 
+// Asegúrate de incluir tus headers aquí arriba:
+// #include "app_commands.h" 
+// #include "app_context.h"
 
 void APP_DeviceCDCBasicDemoTasks()
 {
-  
+    // Si el USB no está configurado o está suspendido, no hacemos nada
     if( USBGetDeviceState() < CONFIGURED_STATE )
     {
         return;
@@ -73,27 +72,31 @@ void APP_DeviceCDCBasicDemoTasks()
         return;
     }
         
+    // Si el PIC está listo para transmitir datos
     if( USBUSARTIsTxTrfReady() == true)
     {
-        uint8_t i;
         uint8_t numBytesRead;
 
+        // Leemos lo que llega de la computadora
         numBytesRead = getsUSBUSART(readBuffer, sizeof(readBuffer));
-
-        /* For every byte that was read... */
-        for(i=0; i<numBytesRead; i++)
-        {
-
-                    writeBuffer[i] = readBuffer[i];
- 
-        }
 
         if(numBytesRead > 0)
         {
-
-            putUSBUSART(writeBuffer,numBytesRead);
+            // Ponemos el terminador nulo para que sea un string válido en C
+            readBuffer[numBytesRead] = '\0';
+            
+            // ¡AQUÍ ENTRA TU LÓGICA!
+            // Dispatch_Command((char*)readBuffer); 
+            
+            // --- Para probar rápido mientras integras tus archivos ---
+            // Reemplaza estas 3 líneas temporales por Dispatch_Command cuando estés listo
+            if(readBuffer[0] == 'H') {
+                putUSBUSART((uint8_t*)"PIC4550_OK\r\n", 12);
+            }
+            // --------------------------------------------------------
         }
     }
 
+    // Le decimos a la librería MLA que procese la transmisión
     CDCTxService();
 }
