@@ -90,7 +90,7 @@ void SYSTEM_Initialize( SYSTEM_STATE state )
     }
 }
 
-
+/*
 #if(__XC8_VERSION < 2000)
     #define INTERRUPT interrupt
 #else
@@ -102,4 +102,4 @@ void INTERRUPT SYS_InterruptHigh(void)
     #if defined(USB_INTERRUPT)
         USBDeviceTasks();
     #endif
-}
+}*/

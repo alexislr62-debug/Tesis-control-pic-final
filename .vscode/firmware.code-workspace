@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"name": "inc",
+			"path": "../../../../../../framework/usb/inc"
+		},
+		{
+			"name": "picdem_fs_usb",
+			"path": "../../../../../../bsp/picdem_fs_usb"
+		},
+		{
+			"name": "src",
+			"path": "../../../../../../framework/usb/src"
+		}
+	],
+	"settings": {}
+}

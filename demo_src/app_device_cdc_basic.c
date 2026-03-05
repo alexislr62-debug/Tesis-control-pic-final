@@ -29,6 +29,9 @@ please contact mla_licensing@microchip.com
 #include "app_device_cdc_basic.h"
 #include "usb_config.h"
 
+#include "app_commands.h" 
+#include "app_context.h"
+
 /** VARIABLES ******************************************************/
 
 static uint8_t readBuffer[CDC_DATA_OUT_EP_SIZE];
@@ -55,9 +58,7 @@ void APP_DeviceCDCBasicDemoInitialize()
 
 }
 
-// Asegúrate de incluir tus headers aquí arriba:
-// #include "app_commands.h" 
-// #include "app_context.h"
+
 
 void APP_DeviceCDCBasicDemoTasks()
 {
@@ -82,18 +83,10 @@ void APP_DeviceCDCBasicDemoTasks()
 
         if(numBytesRead > 0)
         {
-            // Ponemos el terminador nulo para que sea un string válido en C
             readBuffer[numBytesRead] = '\0';
             
-            // ¡AQUÍ ENTRA TU LÓGICA!
-            // Dispatch_Command((char*)readBuffer); 
-            
-            // --- Para probar rápido mientras integras tus archivos ---
-            // Reemplaza estas 3 líneas temporales por Dispatch_Command cuando estés listo
-            if(readBuffer[0] == 'H') {
-                putUSBUSART((uint8_t*)"PIC4550_OK\r\n", 12);
-            }
-            // --------------------------------------------------------
+            Dispatch_Command((char*)readBuffer); 
+
         }
     }
 
