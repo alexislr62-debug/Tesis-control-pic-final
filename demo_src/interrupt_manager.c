@@ -19,6 +19,10 @@ void __interrupt() ISR_Manager(void) {
     // 1. Verificamos si la interrupción fue causada por el desbordamiento del Timer1 (10ms)
     if (PIE1bits.TMR1IE == 1 && PIR1bits.TMR1IF == 1) {
         
+        // --- TEST DE DIAGNÓSTICO ---
+        LATEbits.LATE1 = !LATEbits.LATE1; // Cambia el estado del pin RE1
+        // ---------------------------
+        
         PIR1bits.TMR1IF = 0; // Obligatorio: Bajar la bandera primero
         TMR1_Reload();       // Recargar cuenta inmediatamente para no perder tiempo
         

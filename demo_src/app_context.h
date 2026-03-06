@@ -45,4 +45,6 @@ typedef struct
 
 extern AppContext ctx; // Variable global
 
+void Context_Init(void);
+
 #endif
