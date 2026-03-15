@@ -73,7 +73,7 @@ void Dispatch_Command(char* command) {
         ctx.totalParts = atol(&command[6]);
         sendUSBImmediate("ACK,PARTS\r\n");
     } 
-    else if (strncmp(command, "STEPS,", 6) == 0) {
+    else if (strncmp(command, "SPP,", 6) == 0) {
         // Steps Per Part (Pasos entre cada muestra en Z-scan)
         ctx.stepsPerPart = atol(&command[6]);
         sendUSBImmediate("ACK,SPP\r\n");

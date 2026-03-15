@@ -1,8 +1,8 @@
 #include <xc.h>
 #include "timer1.h"
 
-#define TMR1_RELOAD_H 0xC5
-#define TMR1_RELOAD_L 0x68
+#define TMR1_RELOAD_H 0xFA
+#define TMR1_RELOAD_L 0x24
 
 void TMR1_Initialize(void) {
     T1CON = 0b00110000; // Prescaler 1:8, Fosc/4, Timer apagado
